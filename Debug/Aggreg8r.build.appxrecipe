@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>SATCHWIN8</Machine>
+    <WindowsUser>cherinth</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Development\Aggreg8r\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <Modified>2011-09-18T01:00:53.735</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\css\collectionPage.css">
+      <PackagePath>css\collectionPage.css</PackagePath>
+      <Modified>2011-09-17T23:13:59.332</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\css\default.css">
+      <PackagePath>css\default.css</PackagePath>
+      <Modified>2011-09-17T23:13:59.334</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\css\detailPage.css">
+      <PackagePath>css\detailPage.css</PackagePath>
+      <Modified>2011-09-17T23:13:59.339</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\css\landingPage.css">
+      <PackagePath>css\landingPage.css</PackagePath>
+      <Modified>2011-09-17T23:13:59.343</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2011-09-18T13:14:36.113</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\default.html">
+      <PackagePath>default.html</PackagePath>
+      <Modified>2011-09-17T23:13:59.326</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\html\collectionPage.html">
+      <PackagePath>html\collectionPage.html</PackagePath>
+      <Modified>2011-09-17T23:13:59.347</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\html\detailPage.html">
+      <PackagePath>html\detailPage.html</PackagePath>
+      <Modified>2011-09-17T23:13:59.348</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\html\landingPage.html">
+      <PackagePath>html\landingPage.html</PackagePath>
+      <Modified>2011-09-17T23:13:59.350</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\images\logo.png">
+      <PackagePath>images\logo.png</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\images\smalllogo.png">
+      <PackagePath>images\smalllogo.png</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\images\splashscreen.png">
+      <PackagePath>images\splashscreen.png</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\images\storelogo.png">
+      <PackagePath>images\storelogo.png</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\js\collectionPage.js">
+      <PackagePath>js\collectionPage.js</PackagePath>
+      <Modified>2011-09-18T00:24:49.662</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\js\default.js">
+      <PackagePath>js\default.js</PackagePath>
+      <Modified>2011-09-17T23:13:59.363</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\js\detailPage.js">
+      <PackagePath>js\detailPage.js</PackagePath>
+      <Modified>2011-09-17T23:13:59.365</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\js\landingPage.js">
+      <PackagePath>js\landingPage.js</PackagePath>
+      <Modified>2011-09-18T13:14:35.941</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\Css\ui-dark.css">
+      <PackagePath>winjs\Css\ui-dark.css</PackagePath>
+      <Modified>2011-09-18T00:46:05.111</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\Css\ui-light.css">
+      <PackagePath>winjs\Css\ui-light.css</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\js\animations.js">
+      <PackagePath>winjs\js\animations.js</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\js\base.js">
+      <PackagePath>winjs\js\base.js</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\js\binding.js">
+      <PackagePath>winjs\js\binding.js</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\js\controls.js">
+      <PackagePath>winjs\js\controls.js</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\js\res.js">
+      <PackagePath>winjs\js\res.js</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\js\ui.js">
+      <PackagePath>winjs\js\ui.js</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\js\uicollections.js">
+      <PackagePath>winjs\js\uicollections.js</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+    <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\js\wwaapp.js">
+      <PackagePath>winjs\js\wwaapp.js</PackagePath>
+      <Modified>2011-08-22T09:28:52.000</Modified>
+    </AppXPackagedFile>
+  </ItemGroup>
+</Project>

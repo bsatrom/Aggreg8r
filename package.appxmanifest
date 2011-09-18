@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+
+  <Identity
+    Name="cee5f1d0-3380-489a-817a-4959af5a7532"
+    Version="1.0.0.0"
+    Publisher="CN=cherinth" />
+
+  <Properties>
+    <DisplayName>Aggreg8r</DisplayName>
+    <Description>Aggreg8r</Description>
+    <PublisherDisplayName>cherinth</PublisherDisplayName>
+    <Logo>images\storelogo.png</Logo>
+  </Properties>
+
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+
+  <Resources>
+    <Resource Language="en-US" />
+  </Resources>
+
+  <Applications>
+    <Application 
+      Id="App"
+      StartPage="default.html">
+
+      <VisualElements
+        DisplayName="Aggreg8r"
+        Logo="images\logo.png"
+        SmallLogo="images\smalllogo.png"
+        Description="Aggreg8r"
+        ForegroundText="light"
+        BackgroundColor="#0084FF">
+
+        <DefaultTile ShowName="true" />
+        <SplashScreen Image="images\splashscreen.png" />
+
+      </VisualElements>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+
+</Package>
