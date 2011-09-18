@@ -30,7 +30,7 @@
     </AppXPackagedFile>
     <AppXPackagedFile Include="C:\Development\Aggreg8r\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2011-09-18T13:14:36.113</Modified>
+      <Modified>2011-09-18T15:46:29.722</Modified>
     </AppXPackagedFile>
     <AppXPackagedFile Include="C:\Development\Aggreg8r\default.html">
       <PackagePath>default.html</PackagePath>
@@ -78,7 +78,7 @@
     </AppXPackagedFile>
     <AppXPackagedFile Include="C:\Development\Aggreg8r\js\landingPage.js">
       <PackagePath>js\landingPage.js</PackagePath>
-      <Modified>2011-09-18T13:14:35.941</Modified>
+      <Modified>2011-09-18T15:46:25.972</Modified>
     </AppXPackagedFile>
     <AppXPackagedFile Include="C:\Development\Aggreg8r\winjs\Css\ui-dark.css">
       <PackagePath>winjs\Css\ui-dark.css</PackagePath>
