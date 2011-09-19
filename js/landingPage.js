@@ -7,6 +7,7 @@
     var Popups = Windows.UI.Popups;
     var UICommand = Popups.UICommand;
     var MessageDialog = Popups.MessageDialog;
+    var XDom = Windows.Data.Xml.Dom;
 
     var listRenderer;
     var headerRenderer;
@@ -110,12 +111,25 @@
         var groups = [];
         
         groups.push({
+            key: "channel9Build",
+            title: "BUILD on Channel9",
+            label: "BUILD on Channel9",
+            resource: {
+                url: "http://channel9.msdn.com/Events/BUILD/BUILD2011/RSS",
+                params: []
+            },
+            callback: processC9Data,
+            backgroundColor: colors[1],
+            description: "BUILD content on Channel 9",
+            fullDescription: "BUILD content on Channel 9"
+        });
+
+        groups.push({
             key: "stackOverflow",
             title: "Stack Overflow",
             label: "Stack Overflow Tag Search",
             resource: {
                 url: "http://api.stackoverflow.com/1.1/search?tagged=",
-                contentType: "json",
                 delimiter: ";",
                 params: ["winrt", "winjs", "win8", "metrostyle", "dev11"]
             },
@@ -125,28 +139,10 @@
             fullDescription: "Stack Overflow Tag Search (WinRT, win8, Metro Style, WinJS)"
         });
 
-        groups.push({
-            key: "channel9Build",
-            title: "BUILD on Channel9",
-            label: "BUILD on Channel9",
-            resource: {
-                url: "http://channel9.msdn.com/Events/BUILD/BUILD2011/RSS",
-                contentType: "xml",
-                params: []
-            },
-            callback: processC9Data,
-            backgroundColor: colors[1],
-            description: "BUILD content on Channel 9",
-            fullDescription: "BUILD content on Channel 9"
-        });
-
         return groups;
     } 
         
     function getItems() {
-        var colors = ['rgba(209, 211, 212, 1)', 'rgba(147, 149, 152, 1)', 'rgba(65, 64, 66, 1)'];
-        var items = [];
-
         for (var i = 0, j = pageData.groups.length; i < j; i++) {
             var group = pageData.groups[i];
             var groupUrl = group.resource.url;
@@ -155,13 +151,13 @@
                 groupUrl += group.resource.params[k] + (k+1 !== group.resource.params.length ? group.resource.delimiter : '');
             }
 
-            WinJS.xhr({ url: groupUrl }).then(group.callback, downloadError).then(function () {
+            WinJS.xhr({ url: groupUrl }).then(function(request) {
+                return group.callback(request, group);
+            }, downloadError).then(function (items) {
                 var lv = ui.getControl(document.querySelector('.landingList'));
                 lv.dataSource = items;
             });
         }
-
-        return items;
     }
 
     function downloadError(e) {
@@ -188,26 +184,53 @@
     getItems();
     pageData.items = [];
 
-    function processSOData(request) {
+    function processSOData(request, group) {
+        var colors = ['rgba(209, 211, 212, 1)', 'rgba(147, 149, 152, 1)', 'rgba(65, 64, 66, 1)'];
+        var items = [];
         var response = JSON.parse(request.responseText);
         var length = response.questions.length > 8 ? 8 : response.questions.length;
-        for (var m = 0; m < length; m++) {
-            var question = response.questions[m];
+
+        for (var i = 0; i < length; i++) {
+            var question = response.questions[i];
             items.push({
                 group: group,
                 key: question.question_id,
                 title: question.title,
                 subtitle: "(Asked by " + question.owner.display_name + " [" + question.owner.reputation + "])",
-                //content: "",
-                //description: "",
-                backgroundColor: colors[m % colors.length]
+                backgroundColor: colors[i % colors.length]
             });
         }
 
         return items;
     }
 
-    function processC9Data(request) {
+    function processC9Data(request, group) {
+        var colors = ['rgba(209, 211, 212, 1)', 'rgba(147, 149, 152, 1)', 'rgba(65, 64, 66, 1)'];
+        var items = [];
+
+        var doc = new XDom.XmlDocument;
+        doc.loadXml(request.responseText);
+        var itemsXml = doc.selectNodes("//item");
+        var length = itemsXml.length > 8 ? 8 : itemsXml.length;
+
+        for (var i = 0; i < length; i++) {
+            var post = itemsXml[i];
+            items.push({
+                group: group,
+                key: i,
+                title: select(post, "title"),
+                subtitle: select(post, "description"),
+                content: select(post, "link"),
+                description: select(post, "description"),
+                backgroundColor: colors[i % colors.length]
+            });
+        }
+
+        return items;
+    }
+
+    function select(node, element) {
+        return node.selectNodes(element)[0].firstChild.data;
     }
     
     WinJS.Namespace.define('landingPage', {
