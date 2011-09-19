@@ -16,7 +16,8 @@
 
     var resource = {};
     var pageData = {};
-    
+    var colors = ['rgba(209, 211, 212, 1)', 'rgba(147, 149, 152, 1)', 'rgba(65, 64, 66, 1)'];
+
     // Custom event raised after the fragment is appended to the DOM.
     application.addEventListener('fragmentappended', function handler(e) {
         if (e.location === '/html/landingPage.html') { fragmentLoad(e.fragment, e.state); }
@@ -96,18 +97,7 @@
         }
     }
    
-    function defineResources() {
-        var resourceList = [];
-
-
-
-        return resourceList;
-    }
-      
-    // The getGroups() and getItems() functions contain sample data.
-    // TODO: Replace with custom data.
     function getGroups() {
-        var colors = ['rgba(209, 211, 212, 1)', 'rgba(147, 149, 152, 1)', 'rgba(65, 64, 66, 1)'];
         var groups = [];
         
         groups.push({
@@ -118,7 +108,7 @@
                 url: "http://channel9.msdn.com/Events/BUILD/BUILD2011/RSS",
                 params: []
             },
-            callback: processC9Data,
+            getItems: processC9Data,
             backgroundColor: colors[1],
             description: "BUILD content on Channel 9",
             fullDescription: "BUILD content on Channel 9"
@@ -133,7 +123,7 @@
                 delimiter: ";",
                 params: ["winrt", "winjs", "win8", "metrostyle", "dev11"]
             },
-            callback: processSOData,
+            getItems: processSOData,
             backgroundColor: colors[0],
             description: "Stack Overflow Tag Search",
             fullDescription: "Stack Overflow Tag Search (WinRT, win8, Metro Style, WinJS)"
@@ -150,13 +140,8 @@
             for (var k = 0, l = group.resource.params.length; k < l; k++) {
                 groupUrl += group.resource.params[k] + (k+1 !== group.resource.params.length ? group.resource.delimiter : '');
             }
-
-            WinJS.xhr({ url: groupUrl }).then(function(request) {
-                return group.callback(request, group);
-            }, downloadError).then(function (items) {
-                var lv = ui.getControl(document.querySelector('.landingList'));
-                lv.dataSource = items;
-            });
+            
+            group.getItems(group, groupUrl);            
         }
     }
 
@@ -167,7 +152,7 @@
         var customCommands = [
             new UICommand("Yes", function () {
                 pageData.groups = getGroups();
-                pageData.items = getItems();
+                getItems();
             }),
             new UICommand("No", function () {
                 console.log("download terminated by user");
@@ -184,53 +169,68 @@
     getItems();
     pageData.items = [];
 
-    function processSOData(request, group) {
-        var colors = ['rgba(209, 211, 212, 1)', 'rgba(147, 149, 152, 1)', 'rgba(65, 64, 66, 1)'];
-        var items = [];
-        var response = JSON.parse(request.responseText);
-        var length = response.questions.length > 8 ? 8 : response.questions.length;
-
-        for (var i = 0; i < length; i++) {
-            var question = response.questions[i];
-            items.push({
-                group: group,
-                key: question.question_id,
-                title: question.title,
-                subtitle: "(Asked by " + question.owner.display_name + " [" + question.owner.reputation + "])",
-                backgroundColor: colors[i % colors.length]
-            });
-        }
-
-        return items;
-    }
-
-    function processC9Data(request, group) {
-        var colors = ['rgba(209, 211, 212, 1)', 'rgba(147, 149, 152, 1)', 'rgba(65, 64, 66, 1)'];
+    function processSOData(group, groupUrl) {
         var items = [];
 
-        var doc = new XDom.XmlDocument;
-        doc.loadXml(request.responseText);
-        var itemsXml = doc.selectNodes("//item");
-        var length = itemsXml.length > 8 ? 8 : itemsXml.length;
+        WinJS.xhr({ url: groupUrl }).then(function (request) {
+            var response = JSON.parse(request.responseText);
+            var length = response.questions.length > 8 ? 8 : response.questions.length;
 
-        for (var i = 0; i < length; i++) {
-            var post = itemsXml[i];
-            items.push({
-                group: group,
-                key: i,
-                title: select(post, "title"),
-                subtitle: select(post, "description"),
-                content: select(post, "link"),
-                description: select(post, "description"),
-                backgroundColor: colors[i % colors.length]
-            });
-        }
+            for (var i = 0; i < length; i++) {
+                var question = response.questions[i];
+                items.push({
+                    group: group,
+                    key: question.question_id,
+                    title: question.title,
+                    subtitle: "(Asked by " + question.owner.display_name + " [" + question.owner.reputation + "])",
+                    backgroundColor: colors[i % colors.length]
+                });
+            }
 
-        return items;
+            return items;
+        }, downloadError).then(function (items) {
+            var lv = ui.getControl(document.querySelector('.landingList'));
+            addItemsToPageData(items);
+            lv.dataSource = pageData.items;
+        });
     }
 
-    function select(node, element) {
-        return node.selectNodes(element)[0].firstChild.data;
+    function processC9Data(group, groupUrl) {
+        var items = [];
+
+        var syn = new Windows.Web.Syndication.SyndicationClient();
+        var url = new Windows.Foundation.Uri(groupUrl);
+
+        syn.retrieveFeedAsync(url).then(function (request) {
+            var length = request.items.length > 8 ? 8 : request.items.length;
+
+            for (var i = 0; i < length; i++) {
+                var post = request.items[i];
+                items.push({
+                    group: group,
+                    key: i,
+                    title: post.title.text,
+                    subtitle: post.summary.text,
+                    content: post.links[0].nodeValue,
+                    description: post.summary.text,
+                    backgroundColor: colors[i % colors.length]
+                });
+            }
+
+            return items;
+        }, downloadError).then(function (items) {
+            var lv = ui.getControl(document.querySelector('.landingList'));
+            addItemsToPageData(items);
+            lv.dataSource = pageData.items;
+        });
+    }
+
+    function addItemsToPageData(items) {
+        if (pageData.items.length === 0) {
+            pageData.items = items;
+        } else {
+            pageData.items = pageData.items.concat(items);
+        }
     }
     
     WinJS.Namespace.define('landingPage', {
